@@ -60,6 +60,10 @@ public class AssocCarPersonDAO {
                 Car c = CarDAO.repository.get(car_id);
                 Person p = PersonDAO.repository.get(person_id);
 
+                if(p==null||c==null){
+                    continue;
+                }
+
                 if(!c.usedBy.contains(p)){
                     c.usedBy.add(p);
                 };

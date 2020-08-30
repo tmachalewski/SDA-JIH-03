@@ -2,6 +2,7 @@ package pl.sda;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +78,26 @@ public class CarDAO {
         }
 
     }
+
+    public List<Car> readAll(){
+        List<Car> cars = new ArrayList<>();
+        try(Connection con = ds.getConnection()){
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("Select * from Car");
+
+            while(rs.next()){
+                Car c = new Car();
+                c.id=rs.getInt(1);
+                c.kind=rs.getString(2);
+                cars.add(c);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return cars;
+
+    }
+
 
 
 }
